@@ -72,7 +72,7 @@ def bucle_seleccion_opcion6():
     while True:
         seleccion = validar_int("\n1. Ver mayor y menor indice de población"
                                 "\n2. Ver promedio de superficie"
-                                "\n3. Ver Cantidad de paises por continente"
+                                "\n3. Ver cantidad de paises por continente"
                                 "\n\nSeleccione una opción: ")
 
         if seleccion < 1 or seleccion > 3:
@@ -85,8 +85,8 @@ def bucle_seleccion_orden():
     while True:
         seleccion = validar_int("\n1. Mostrar nombres ordenados alfabeticamente"
                                 "\n2. Mostrar poblacion ordenada de menor a mayor"
-                                "\n3. Mostrar superficie de menor a mayor o viceversa\n"
-                                "\nSeleccione una opción: ")
+                                "\n3. Mostrar superficie de menor a mayor o viceversa"
+                                "\n\nSeleccione una opción: ")
         
         if seleccion < 1 or seleccion > 3:
             print("\nSelección fuera del rango.\n")
@@ -97,8 +97,8 @@ def bucle_seleccion_orden():
 def bucle_seleccion_superficie_ascendiente_o_descendiente():
     while True:
         seleccion = validar_int("\n1. Menor a mayor"
-                                "\n2. Mayor a menor\n"
-                                "\nSeleccione una opción: ")
+                                "\n2. Mayor a menor"
+                                "\n\nSeleccione una opción: ")
         
         if seleccion < 1 or seleccion > 2:
             print("\nSelección fuera del rango.\n")
@@ -107,7 +107,7 @@ def bucle_seleccion_superficie_ascendiente_o_descendiente():
             return seleccion
 
 
-#Africa, Norte America, Sudamerica, Asia, Europa, Australia, Antartica
+#Africa, America, Asia, Europa, Australia, Antartica
 
 while True: #mostrar menu de opciones
     seleccion_menu = validar_int( "1. Añadir un nuevo país"
@@ -120,24 +120,30 @@ while True: #mostrar menu de opciones
                                 "\n\nSeleccione una opción: ")
 
     if seleccion_menu == 1:
-        paises_csv = open(archivo, "a", newline="", encoding="utf-8")
-        escritor = csv.writer(paises_csv)
+        pais_repetido = False
+        with open(archivo, "r", newline="", encoding="utf-8") as paises_csv:
+            lector = list(csv.reader(paises_csv))
 
-        nuevo_pais_nombre = validar_alpha("Ingrese el nombre de un nuevo país: ").capitalize()
-        nuevo_pais_poblacion = validar_int("Ingrese la población: ")
-        nuevo_pais_superficie = validar_int("Ingrese la superficie del país (en metros cuadrados): ")
-        nuevo_pais_continente = bucle_seleccion_continentes()
+            nuevo_pais_nombre = validar_alpha("\nIngrese el nombre de un nuevo país: ").capitalize()
 
-        escritor.writerow([nuevo_pais_nombre, nuevo_pais_poblacion, nuevo_pais_superficie, nuevo_pais_continente])
+            for linea in lector:
+                if linea[0] == nuevo_pais_nombre:
+                    pais_repetido = True
+                    break
 
-        paises_csv.close()
+            if pais_repetido == True:
+                print("\nEse país ya existe!\n")
+            else:
+                nuevo_pais_poblacion = validar_int("\nIngrese la población: ")
+                nuevo_pais_superficie = validar_int("\nIngrese la superficie del país (en metros cuadrados): ")
+                nuevo_pais_continente = bucle_seleccion_continentes()
+
+                escritor.writerow([nuevo_pais_nombre, nuevo_pais_poblacion, nuevo_pais_superficie, nuevo_pais_continente])
 
     if seleccion_menu == 2:
         with open(archivo, "r", newline="", encoding="utf-8") as paises_csv:
 
             filas_lista = list(csv.reader(paises_csv))
-
-            print(filas_lista)
 
             nombre_a_buscar = validar_alpha("Ingrese el nombre de un país: ")
 
@@ -171,7 +177,7 @@ while True: #mostrar menu de opciones
     if seleccion_menu == 3:
         with open(archivo, "r", encoding="utf-8") as paises_csv:
         
-            nombre_a_buscar = validar_alpha("Ingrese el nombre de un país: ")
+            nombre_a_buscar = validar_alpha("Ingrese el nombre de un país: ").capitalize()
 
             lector = csv.DictReader(paises_csv)
 
@@ -198,9 +204,8 @@ while True: #mostrar menu de opciones
                 lector = csv.reader(paises_csv)
 
                 next(lector)
-                print()
-                print("PAIS - CONTINENTE")
-                print()
+                print("\nPAIS - CONTINENTE\n")
+
                 for linea in lector:
                     print(linea[0], "-", linea[3])
                 print()
