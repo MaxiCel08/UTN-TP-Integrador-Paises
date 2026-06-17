@@ -1,5 +1,4 @@
 ## Trabajo Practico Integrador: Programación I
-## Maximo Celoto Longhi - Elias Gabriel Vallejos, Junio 2026
 
 ### PAISES.CSV
 
@@ -34,3 +33,7 @@ Promedio superficie: Ver el promedio de superficie entre todos los países.
 Paises y continentes: Ver una lista de cada continente con el número de países que marca.
 
 **Metodo 7**: Salir del programa.
+
+## Links
+
+[Video Explicativo](https://drive.google.com/file/d/1x23Kve-S_bc2WIP6owMBo4nGo_03g1jI/view?usp=sharing)
