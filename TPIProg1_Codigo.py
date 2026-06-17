@@ -134,11 +134,19 @@ while True: #mostrar menu de opciones
             if pais_repetido == True:
                 print("\nEse país ya existe!\n")
             else:
-                nuevo_pais_poblacion = validar_int("\nIngrese la población: ")
-                nuevo_pais_superficie = validar_int("\nIngrese la superficie del país (en metros cuadrados): ")
-                nuevo_pais_continente = bucle_seleccion_continentes()
+                    nuevo_pais_poblacion = validar_int("\nIngrese la población: ")
+                    nuevo_pais_superficie = validar_int("\nIngrese la superficie del país (en metros cuadrados): ")
+                    nuevo_pais_continente = bucle_seleccion_continentes()
 
-                escritor.writerow([nuevo_pais_nombre, nuevo_pais_poblacion, nuevo_pais_superficie, nuevo_pais_continente])
+                    with open(archivo, "a", newline="", encoding="utf-8") as paises_escritura_csv:
+                        escritor = csv.writer(paises_escritura_csv)
+                        
+                        escritor.writerow([
+                            nuevo_pais_nombre,
+                            nuevo_pais_poblacion,
+                            nuevo_pais_superficie,
+                            nuevo_pais_continente
+                        ])
 
     if seleccion_menu == 2:
         with open(archivo, "r", newline="", encoding="utf-8") as paises_csv:
